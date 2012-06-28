@@ -1,3 +1,5 @@
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/
+=======
 /******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_type.h
 * Author             : MCD Application Team
