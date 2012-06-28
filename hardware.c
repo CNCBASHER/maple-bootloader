@@ -170,7 +170,7 @@ void jumpToUser (u32 usrAddr) {
   systemReset(); // resets clocks and periphs, not core regs
   
 
-  __MSR_MSP(*(vu32*) usrAddr);              /* set the users stack ptr */
+  __set_MSP(*(vu32*) usrAddr);              /* set the users stack ptr */
 
   usrMain();                                /* go! */
 }

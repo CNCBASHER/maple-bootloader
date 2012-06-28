@@ -81,7 +81,7 @@ DEVICE_PROP Device_Property =
     usbGetDeviceDescriptor,
     usbGetConfigDescriptor,
     usbGetStringDescriptor,
-    usbGetFunctionalDescriptor,
+//    usbGetFunctionalDescriptor,	// XXX
     0,
     bMaxPacketSize
   };

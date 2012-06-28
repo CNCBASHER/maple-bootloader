@@ -34,9 +34,20 @@
 #define __COMMON_H
 
 #include "config.h"
+#include "mchck.h"
+
+/* MC HCK namespace compat */
+typedef volatile uint32_t vu32;
+typedef volatile const uint32_t vuc32;
+typedef uint32_t u32;
+typedef volatile uint16_t vu16;
+typedef uint16_t u16;
+typedef volatile uint8_t vu8;
+typedef uint8_t u8;
+
+#include "usb_type.h"
+
 #include "hardware.h"
-#include "stm32f10x_type.h"
-#include "cortexm3_macro.h"
 #include "usb.h"
 
 typedef void (*FuncPtr)(void);

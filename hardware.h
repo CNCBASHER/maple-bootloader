@@ -25,11 +25,14 @@
 #ifndef __HARDWARE_H
 #define __HARDWARE_H
 
-#include "stm32f10x_type.h"
-#include "cortexm3_macro.h"
 #include "common.h"
 
 /* macro'd register and peripheral definitions */
+#undef RCC
+#undef FLASH
+#undef GPIOA
+#undef GPIOC
+
 #define RCC   ((u32)0x40021000)
 #define FLASH ((u32)0x40022000)
 #define GPIOA ((u32)0x40010800)
@@ -54,7 +57,7 @@
 #define FLASH_KEY1     0x45670123
 #define FLASH_KEY2     0xCDEF89AB
 #define FLASH_RDPRT    0x00A5
-#define FLASH_SR_BSY   0x01
+//#define FLASH_SR_BSY   0x01
 #define FLASH_CR_PER   0x02
 #define FLASH_CR_PG    0x01
 #define FLASH_CR_START 0x40
@@ -65,15 +68,13 @@
 #define GPIO_ODR(port)  (port+0x0c)
 #define GPIO_BSRR(port) (port+0x10)
 
-#define SCS_BASE   ((u32)0xE000E000)
-#define NVIC_BASE  (SCS_BASE + 0x0100)
-#define SCB_BASE   (SCS_BASE + 0x0D00)
+#undef NVIC
+#undef SCB
 
-
-#define SCS      0xE000E000
-#define NVIC     (SCS+0x100)
-#define SCB      (SCS+0xD00)
-#define STK      (SCS+0x10)
+#define SCS      SCS_BASE
+#define NVIC     NVIC_BASE
+#define SCB      SCB_BASE
+#define STK      SysTick_BASE
 
 #define SCB_VTOR (SCB+0x08)
 #define STK_CTRL (STK+0x00)
@@ -139,13 +140,6 @@ typedef struct {
   u32  RESERVED4[62];
   vu32 IPR[15];
 } NVIC_TypeDef;
-
-typedef struct {
-  u8 NVIC_IRQChannel;
-  u8 NVIC_IRQChannelPreemptionPriority;
-  u8 NVIC_IRQChannelSubPriority;
-  bool NVIC_IRQChannelCmd; /* TRUE for enable */
-} NVIC_InitTypeDef;
 
 typedef struct {
   vuc32 CPUID;
