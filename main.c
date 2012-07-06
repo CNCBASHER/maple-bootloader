@@ -38,7 +38,6 @@ int main() {
   setupCLK();
   setupLED();
   setupUSB();
-  setupBUTTON();
   setupFLASH();
 
   strobePin(LED_BANK,LED,STARTUP_BLINKS,BLINK_FAST);

@@ -33,40 +33,41 @@
 #undef GPIOA
 #undef GPIOC
 
-#define RCC   ((u32)0x40021000)
-#define FLASH ((u32)0x40022000)
-#define GPIOA ((u32)0x40010800)
-#define GPIOC ((u32)0x40011000)
+#define RCC   ((u32)0x40023800)
+#define FLASH ((u32)0x40023c00)
+#define GPIOA ((u32)0x40020000)
+#define GPIOC ((u32)0x40020800)
 
 #define RCC_CR      RCC
-#define RCC_CFGR    (RCC + 0x04)
-#define RCC_CIR     (RCC + 0x08)
-#define RCC_AHBENR  (RCC + 0x14)
-#define RCC_APB2ENR (RCC + 0x18)
-#define RCC_APB1ENR (RCC + 0x1C)
+#define RCC_CFGR    (RCC + 0x08)
+#define RCC_CIR     (RCC + 0x0c)
+#define RCC_AHBENR  (RCC + 0x1c)
+#define RCC_APB2ENR (RCC + 0x20)
+#define RCC_APB1ENR (RCC + 0x24)
 
 #define FLASH_ACR     (FLASH + 0x00)
-#define FLASH_KEYR    (FLASH + 0x04)
-#define FLASH_OPTKEYR (FLASH + 0x08)
-#define FLASH_SR      (FLASH + 0x0C)
-#define FLASH_CR      (FLASH + 0x10)
-#define FLASH_AR      (FLASH + 0x14)
+#define FLASH_PECR    (FLASH + 0x04)
+#define FLASH_PDKEYR  (FLASH + 0x08)
+#define FLASH_PEKEYR  (FLASH + 0x0c)
+#define FLASH_PRGKEYR (FLASH + 0x10)
+#define FLASH_OPTKEYR (FLASH + 0x14)
+#define FLASH_SR      (FLASH + 0x18)
 #define FLASH_OBR     (FLASH + 0x1C)
-#define FLASH_WRPR    (FLASH + 0x20)
+#define FLASH_WRPR1   (FLASH + 0x20)
+#define FLASH_WRPR1   (FLASH + 0x80)
+#define FLASH_WRPR1   (FLASH + 0x84)
 
-#define FLASH_KEY1     0x45670123
-#define FLASH_KEY2     0xCDEF89AB
-#define FLASH_RDPRT    0x00A5
-//#define FLASH_SR_BSY   0x01
-#define FLASH_CR_PER   0x02
-#define FLASH_CR_PG    0x01
-#define FLASH_CR_START 0x40
+#define FLASH_PEKEY1     0x89ABCDEF
+#define FLASH_PEKEY2     0x02030405
+#define FLASH_SR_BSY     0x01
 
-#define GPIO_CRL(port)  port
-#define GPIO_CRH(port)  (port+0x04)
-#define GPIO_IDR(port)  (port+0x08)
-#define GPIO_ODR(port)  (port+0x0c)
-#define GPIO_BSRR(port) (port+0x10)
+#define GPIO_MODER(port)   port
+#define GPIO_OTYPER(port)  (port+0x04)
+#define GPIO_OSPEED(port)  (port+0x08)
+#define GPIO_PUPDR(port)   (port+0x0c)
+#define GPIO_IDR(port)     (port+0x10)
+#define GPIO_ODR(port)     (port+0x14)
+#define GPIO_BSRR(port)    (port+0x18)
 
 #undef NVIC
 #undef SCB
@@ -169,7 +170,6 @@ void systemReset   (void);
 void setupCLK      (void);
 void setupLED      (void);
 void setupFLASH    (void);
-void setupBUTTON   (void);
 bool checkUserCode (u32 usrAddr);
 void jumpToUser    (u32 usrAddr);
 

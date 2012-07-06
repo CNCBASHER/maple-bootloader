@@ -96,40 +96,23 @@ void setupCLK (void) {
 }
 
 void setupLED (void) {
-  // todo, swap out hardcoded pin/bank with macro
+  // LED is on on Bank C, pin 13
   u32 rwmVal; /* read-write-modify place holder var */
 
-  /* Setup APB2 (GPIOA) */
-  rwmVal =  GET_REG(RCC_APB2ENR);
+  /* Setup AHB (GPIOC) */
+  rwmVal =  GET_REG(RCC_AHBENR);
   rwmVal |= 0x00000004;
-  SET_REG(RCC_APB2ENR,rwmVal);
+  SET_REG(RCC_AHBENR,rwmVal);
 
-  /* Setup GPIOA Pin 5 as PP Out */
-  SET_REG(GPIO_CRL(GPIOA), 0x00100000);
+  /* Setup GPIOC Pin 13 as PP Out */
+  SET_REG(GPIO_MODER(GPIOC), 0x04000000); // Isn't this redundant
 
-  rwmVal =  GET_REG(GPIO_CRL(GPIOA));
+  rwmVal =  GET_REG(GPIO_MODER(GPIOC));
   rwmVal &= 0xFF0FFFFF;
   rwmVal |= 0x00100000;
-  SET_REG(GPIO_CRL(GPIOA),rwmVal);
+  SET_REG(GPIO_CRL(GPIOC),rwmVal);
 
-  setPin(GPIOA,5);
-}
-
-void setupBUTTON (void) {
-  // todo, swap out hardcoded pin/bank with macro
-  u32 rwmVal; /* read-write-modify place holder var */
-
-  /* Setup APB2 (GPIOC) */
-  rwmVal =  GET_REG(RCC_APB2ENR);
-  rwmVal |= 0x00000010;
-  SET_REG(RCC_APB2ENR,rwmVal);
-
-  /* Setup GPIOC Pin 9 as PP Out */
-  rwmVal =  GET_REG(GPIO_CRH(GPIOC));
-  rwmVal &= 0xFFFFFF0F;
-  rwmVal |= 0x00000040;
-  SET_REG(GPIO_CRH(GPIOC),rwmVal);
-
+  setPin(GPIOC,13);
 }
 
 void setupFLASH() {
@@ -290,13 +273,13 @@ void flashLock() {
   /* take down the HSI oscillator? it may be in use elsewhere */
 
   /* ensure all FPEC functions disabled and lock the FPEC */
-  SET_REG(FLASH_CR,0x00000080);
+  SET_REG(FLASH_PECR,0x00000080);
 }
 
 void flashUnlock() {
   /* unlock the flash */
-  SET_REG(FLASH_KEYR,FLASH_KEY1);
-  SET_REG(FLASH_KEYR,FLASH_KEY2);
+  SET_REG(FLASH_PEKEYR,FLASH_PEKEY1);
+  SET_REG(FLASH_PEKEYR,FLASH_PEKEY2);
 }
 
 
